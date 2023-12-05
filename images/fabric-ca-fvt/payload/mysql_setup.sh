@@ -8,10 +8,21 @@ arch=$(uname -m)
 export DEBIAN_FRONTEND=noninteractive
 
 # Latest mysql version number can be found at https://dev.mysql.com/downloads/repo/apt/
+printf "===1===\n"
+dpkg -l | grep sql
 echo mysql-apt-config mysql-apt-config/select-server select mysql-5.7 | debconf-set-selections
 wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb
 dpkg -i mysql-apt-config_0.8.22-1_all.deb
+printf "===2===\n"
+dpkg -l | grep sql
 apt-get update
+printf "===3===\n"
+dpkg -l | grep sql
+printf "===4===\n"
+dpkg -c mysql-apt-config_0.8.22-1_all.deb
+printf "===5===\n"
+apt-file list mysql-apt-config
+printf "===6===\n"
 apt-get install mysql-server -y
 service mysql start
 mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql'"
