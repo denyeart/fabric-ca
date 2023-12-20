@@ -7,6 +7,10 @@ arch=$(uname -m)
 
 export DEBIAN_FRONTEND=noninteractive
 
+# Workaround for https://github.com/docker-library/mysql/issues/1016
+# This can be removed once fixed by MySQL
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
+
 # Latest mysql download can be found at https://dev.mysql.com/downloads/repo/apt/
 # mysql versions and platform support can be found at http://repo.mysql.com/apt/debian/dists/bullseye/ (no arm support)
 echo mysql-apt-config mysql-apt-config/select-server select mysql-8.0 | debconf-set-selections
